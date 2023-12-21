@@ -7,13 +7,7 @@ import db from '../firebase'
 
 
 function Home() {
-  useEffect(()=>{             //runs when this particular component is loaded
-    
-    //these commands are basically of firebase
-    db.collection("movies").onSnapshot((snapshot)=>{
-
-    })     //snapshot means db ka saara data le aao at the time instant when i called the snapshot func(mtlb jab ye component mai useEffect run hoga) and also when db mai koi change hua then it sends a new picture thus we can say it is live db
-  },[])
+  
   return (
     <Container>
       <ImgSlider/>
