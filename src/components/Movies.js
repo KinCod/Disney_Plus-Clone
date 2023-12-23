@@ -1,27 +1,26 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { selectMovies } from '../features/movie/movieSlice'  //Importing List of all the movies
+import { useSelector } from 'react-redux'
+
 function Movies() {
+
+  const movies = useSelector(selectMovies);   //selected all the movies and pushed into the movies variable 
+
+
   return (
     <Container>
       <h4>Recommended for You</h4>
 
       <Content>
-        <div>
-          <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/0B2682B4B01548242036066A1428197E2CC6DB23135B43CEE90A854D4F1055F8/scale?width=800&aspectRatio=1.78&format=jpeg" alt="" />
-        </div>
-        <div>
-          <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/08A93C557C046ED8E088F6822BB179BDB28362D2DA214825E1FCC06DCC65EE24/scale?width=800&aspectRatio=1.78&format=jpeg" alt="" />
-        </div>
-        <div>
-          <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/73341C9CFC716929B40E9092D7ADC357A9B2C876FB010A4C193B21F3EF452670/badging?width=800&aspectRatio=1.78&format=jpeg&label=originals" alt="" />
-        </div>
-        <div>
-          <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/00EA763FCAAB2C64FD7C93EB42764D5072EE2822BF1A2932F465D76BB769ECBC/badging?width=800&aspectRatio=1.78&format=jpeg&label=originals" alt="" />
-        </div>
-        <div>
-          <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/7B200F645A0F5EED08548E9B51CFD844804D7B87550BA81E8AB7B76AD6AFD391/scale?width=800&aspectRatio=1.78&format=jpeg" alt="" />
-        </div>
+        { movies &&     //agar movies exist
+          movies.map((movie)=>{
+            return <div>
+              <img src={movie.item.cardImg}  alt=''/>
+            </div>
+          })
+        }
       </Content>
     </Container>
   )

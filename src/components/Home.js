@@ -5,14 +5,19 @@ import Viewers from './Viewers'
 import Movies from './Movies'
 import data from '../data.json'              //as database was not working so made a custom json from where we extract the data
 
+import { useDispatch } from 'react-redux'
+import {setMovie} from '../features/movie/movieSlice'     //action le aaye idhar
+
 function Home() {
+  const dispatch = useDispatch();
   
+  //using dispatch and action we get these movies and store them to the global state
   useEffect(()=>{
     let tempMovies = data.payload.items.map((item)=>{
-      return {id : item.id , item}     //capturing each item and id alag se
+      return {item}     //capturing each item and id alag se
     });
-      console.log(tempMovies)
-  },[])
+    dispatch(setMovie(tempMovies));     //jo temp movie hai uske liye action krna hai 
+  })
 
   return (
     <Container>
