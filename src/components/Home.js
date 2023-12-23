@@ -3,11 +3,17 @@ import styled from 'styled-components'
 import ImgSlider from './ImgSlider'
 import Viewers from './Viewers'
 import Movies from './Movies'
-import db from '../firebase'
-
+import data from '../data.json'              //as database was not working so made a custom json from where we extract the data
 
 function Home() {
   
+  useEffect(()=>{
+    let tempMovies = data.payload.items.map((item)=>{
+      return {id : item.id , item}     //capturing each item and id alag se
+    });
+      console.log(tempMovies)
+  },[])
+
   return (
     <Container>
       <ImgSlider/>
