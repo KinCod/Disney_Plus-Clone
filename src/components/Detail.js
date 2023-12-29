@@ -1,37 +1,58 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-
+import db from '../data.json'
+import { useParams} from 'react-router-dom'         //the extra things written in router which will be filled by link is known as parameters
+                                                //as id has been sent toh uska use hum krenge to populate the detail page
 function Detail() {
+    const { id } = useParams();
+    const [movie,setMovie] = useState();
+   
+    //console.log(id);                               //ab details k pas id aa gyi hai and iss id ka use krke we want info of the current movie
+
+    useEffect(()=>{              
+        //now accessing the data related to id from the database
+        
+        db.payload.items.forEach((item)=>{      //saare elements dekhe and jahan condition full fill huiye vo item stored into the state
+            if(item.id == id) setMovie(item);
+        })
+        
+    },[])
+
   return (
     <Container>
-        <BackG>
-            <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/4F39B7E16726ECF419DD7C49E011DD95099AA20A962B0B10AA1881A70661CE45/scale?width=1440&aspectRatio=1.78&format=jpeg" alt="" />
-        </BackG>
-        <ImageTitle>
-            <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/D7AEE1F05D10FC37C873176AAA26F777FC1B71E7A6563F36C6B1B497CAB1CEC2/scale?width=1440&aspectRatio=1.78" alt="" />
-        </ImageTitle>
-        <Controls>
-            <button className='a'>
-                <img src="images/play-icon-black.png" alt="" />
-                PLAY
-            </button>
-            <button className='b'>
-                <img src="images/play-icon-white.png" alt="" />
-                TRAILER
-            </button>
-            <button className='c'>
-                +
-            </button>
-            <button className='d'>
-                <img src="images/group-icon.png" alt="" />
-            </button>
-        </Controls>
-        <Subtitle>
-            2018 . 7m . Family, Fantasy, Kids, Animation
-        </Subtitle>
-        <Title>
-            a Chinese mom who’s sad when her grown son leaves home gets another chance at motherhood when one of her dumplings springs to life as a lively, giggly dumpling boy. Mom excitedly welcomes this new bundle of joy into her life, but Dumpling starts growing up fast, and Mom must face the bittersweet truth that nothing stays cute and small forever.
-        </Title>
+        { movie && 
+            <>
+                <BackG>
+                    <img src={movie.backgroundImg} alt="" />
+                </BackG>
+                <ImageTitle>
+                    <img src={movie.titleImg} alt="" />
+                </ImageTitle>
+                <Controls>
+                    <button className='a'>
+                        <img src="/images/play-icon-black.png" alt="" />
+                        PLAY
+                    </button>
+                    <button className='b'>
+                        <img src="/images/play-icon-white.png" alt="" />
+                        TRAILER
+                    </button>
+                    <button className='c'>
+                        +
+                    </button>
+                    <button className='d'>
+                        <img src="/images/group-icon.png" alt="No img" />
+                    </button>
+                </Controls>
+                <Subtitle>
+                    {movie.subTitle}
+                </Subtitle>
+                <Title>
+                    {movie.description}
+                </Title> 
+            </>
+            }
+        
     </Container>
   )
 }
@@ -76,6 +97,16 @@ const ImageTitle = styled.div`
 const Controls = styled.div`
     display: flex;
     align-items: center;
+    
+    button{
+        cursor: pointer;
+    }
+
+    button.b{
+        &:hover{
+            transform: scale(1.03);
+        }
+    }
 
     button.a{
         padding : 5px 24px;

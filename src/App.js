@@ -19,7 +19,7 @@ function App() {
         <Head/>   {/*Ye sab router mai rhega isliye is not bw Routes*/}
         
         <Routes>
-         <Route key={"detail"} exact path="/detail" element={ <Detail/>}/>
+         <Route key={"detail"} path="/detail/:id" element={ <Detail/>}/>  {/* Ye jo :id hai iska mtlb ye router jidhar se link hua udhar se after detail kuch aur send hoga usko id mai store karlena. And phir ye id hum direcltly kahin se bhi acccess kaar skte by its own name*/}
         </Routes>  
 
         <Routes>

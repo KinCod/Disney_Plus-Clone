@@ -3,11 +3,12 @@ import styled from 'styled-components'
 
 import { selectMovies } from '../features/movie/movieSlice'  //Importing List of all the movies
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 function Movies() {
 
   const movies = useSelector(selectMovies);   //selected all the movies and pushed into the movies variable 
-
+  
 
   return (
     <Container>
@@ -15,9 +16,11 @@ function Movies() {
 
       <Content>
         { movies &&     //agar movies exist
-          movies.map((movie)=>{
-            return <div>
-              <img src={movie.item.cardImg}  alt=''/>
+          movies.map((movie)=>{                       //movies ko map kardo into src of img and return krdo iss div ko until saari movies na map hojaye
+            return <div key={movie.item.id}>
+              <Link to={`/detail/${movie.item.id}`}>    {/* Linked image to detail page jiske aage hum particular image ki id bhi bhejenge*/}
+                <img src={movie.item.cardImg}  alt=''/>
+              </Link> 
             </div>
           })
         }
