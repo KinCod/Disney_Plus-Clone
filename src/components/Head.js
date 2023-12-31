@@ -1,5 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+
 
 
 function Head() {
@@ -32,7 +34,10 @@ function Head() {
             <span>SERIES</span>
         </a>
       </NavMenu>
-      <UserImag src="https://picsum.photos/200/300"/>
+      <Link to="/login">
+        <UserImag src="https://picsum.photos/200/300"/>
+      </Link>
+      
     </Nav>
   )
 }
