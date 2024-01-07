@@ -2,11 +2,16 @@ import React from 'react'
 import styled from 'styled-components'
 
 function Login() {
+
+    const show = ()=>{
+        window.alert("Login Using the Login Button");
+    }
+
   return (
     <Container>
         <Contentbox>
             <Cb1 src='images/cta-logo-one.svg '/>
-            <SignUp>GET ALL THERE</SignUp>
+            <SignUp onClick={show}>GET ALL THERE</SignUp>
             <Desc>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi cupiditate, nemo delectus recusandae itaque, quam expedita in aut laudantium rerum dolorem deserunt repudiandae asperiores, suscipit natus ipsam eius ex et!</Desc>
             <Logo src='images/cta-logo-two.png '/>
         </Contentbox>

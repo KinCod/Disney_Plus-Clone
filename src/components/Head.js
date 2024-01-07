@@ -1,42 +1,96 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import {useNavigate } from 'react-router-dom'
+import styled  from 'styled-components'
+
+import { useSelector , useDispatch } from 'react-redux'
+import { selectUserName,selectUserPhoto} from '../features/user/userSlice'
+import { setUserLogin , setSignOut } from '../features/user/userSlice'
+
+import { auth,provider } from '../firebase'         //firebase ki authentication will be 
+import { signInWithPopup ,signOut} from "firebase/auth";
+import { useEffect } from 'react'
+
 
 
 
 function Head() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const signIn = () =>{              //ye firebase auth ka apna ek tool hota hai
+    signInWithPopup(auth,provider)
+    .then((result)=>{              //agar successfull hua the show something
+      dispatch(setUserLogin({
+        name : result.user.displayName,
+        email: result.user.email, 
+        photo : result.user.photoURL
+      }));
+      navigate("/");
+    })
+  }
+
+  const clean = () =>{
+    signOut(auth)
+    .then(()=>{
+      dispatch(setSignOut());
+      navigate("/login");
+    })
+    
+  }
+  
+  useEffect(()=>{
+    auth.onAuthStateChanged(async(data)=>{           //async says ki bhai pehle wait kro mera phir hi aage ka chalao
+      if(data){
+        dispatch(setUserLogin({
+          name : data.displayName,
+          email:  data.email, 
+          photo : data.photoURL
+        }));
+        navigate("/");
+    }})
+  },[])
+  
+  const userName = useSelector(selectUserName);
+  const userImage = useSelector(selectUserPhoto);
+
   return (
     <Nav>
       <Logo src="/images/logo.svg"/>
-      <NavMenu >
-        <a href="#/" className='abc' >
-            <img src="/images/home-icon.svg" alt="" />
-            <span>HOME</span>
-        </a>
-        <a href="#/" className='abc'>
-            <img src="/images/search-icon.svg" alt="" />
-            <span>SEARCH</span>
-        </a>
-        <a href="#/" className='abc'>
-            <img src="/images/watchlist-icon.svg" alt="" />
-            <span>WATCHLIST</span>
-        </a>
-        <a href="#/" className='cc'>
-            <img src="/images/original-icon.svg" alt="" />
-            <span>ORIGINALS</span>
-        </a>
-        <a href="#/" className='cc'>
-            <img src="/images/movie-icon.svg" alt="" />
-            <span>MOVIES</span>
-        </a>
-        <a href="#/" className='cc'>
-            <img src="/images/series-icon.svg" alt="" />
-            <span>SERIES</span>
-        </a>
-      </NavMenu>
-      <Link to="/login">
-        <UserImag src="https://picsum.photos/200/300"/>
-      </Link>
+        {
+          !userName ? (<Login onClick={signIn}> Login </Login>)
+          :
+          <>
+            <NavMenu >
+              <a href="#/" className='abc' >
+                  <img src="/images/home-icon.svg" alt="" />
+                  <span>HOME</span>
+              </a>
+              <a href="#/" className='abc'>
+                  <img src="/images/search-icon.svg" alt="" />
+                  <span>SEARCH</span>
+              </a>
+              <a href="#/" className='abc'>
+                  <img src="/images/watchlist-icon.svg" alt="" />
+                  <span>WATCHLIST</span>
+              </a>
+              <a href="#/" className='cc'>
+                  <img src="/images/original-icon.svg" alt="" />
+                  <span>ORIGINALS</span>
+              </a>
+              <a href="#/" className='cc'>
+                  <img src="/images/movie-icon.svg" alt="" />
+                  <span>MOVIES</span>
+              </a>
+              <a href="#/" className='cc'>
+                  <img src="/images/series-icon.svg" alt="" />
+                  <span>SERIES</span>
+              </a>
+            </NavMenu>
+              <UserImag onClick={clean} title='Click To LogOut' src={userImage}/>
+          </>
+        }
+        
+        
       
     </Nav>
   )
@@ -121,4 +175,20 @@ const UserImag = styled.img`
     height : 48px;
     border-radius : 50%;  //this makes the thing round
     cursor : pointer;
+`
+const Login = styled.div`
+    border : 1px solid #f9f9f9;
+    padding : 8px 16px;
+    border-radius: 4px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background-color: rgba(0,0,0,0.6);
+    cursor: pointer; 
+
+    &:hover{
+      background-color: #f9f9f9;
+      color : #000;
+      border-color: transparent;
+
+    }
 `
