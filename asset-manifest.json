@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/disney_plus_clone/static/css/main.a63af7be.css",
+    "main.js": "/disney_plus_clone/static/js/main.d7eb997e.js",
+    "static/js/787.f1b28c5f.chunk.js": "/disney_plus_clone/static/js/787.f1b28c5f.chunk.js",
+    "static/media/slick.svg": "/disney_plus_clone/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/disney_plus_clone/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/disney_plus_clone/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/disney_plus_clone/static/media/slick.295183786cd8a1389865.woff",
+    "index.html": "/disney_plus_clone/index.html",
+    "main.a63af7be.css.map": "/disney_plus_clone/static/css/main.a63af7be.css.map",
+    "main.d7eb997e.js.map": "/disney_plus_clone/static/js/main.d7eb997e.js.map",
+    "787.f1b28c5f.chunk.js.map": "/disney_plus_clone/static/js/787.f1b28c5f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a63af7be.css",
+    "static/js/main.d7eb997e.js"
+  ]
+}
