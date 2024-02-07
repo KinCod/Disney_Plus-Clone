@@ -23,11 +23,11 @@ function App() {
         </Routes>  
 
         <Routes>
-          <Route key={"home"} path="/" element={<Home/>}></Route>
+          <Route key={"home"} path="/home" element={<Home/>}></Route>
         </Routes>
 
         <Routes>
-          <Route key={"login"} path="/login" element={<Login/>}></Route>
+          <Route key={"login"} path="/" element={<Login/>}></Route>
         </Routes>
 
       </Router>

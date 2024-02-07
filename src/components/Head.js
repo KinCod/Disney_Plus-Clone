@@ -25,6 +25,10 @@ function Head() {
         email: result.user.email, 
         photo : result.user.photoURL
       }));
+      navigate("/home");
+    })
+    .catch((err)=>{
+      window.alert("Some Error Occured!! TRY AGAIN");
       navigate("/");
     })
   }
@@ -33,7 +37,7 @@ function Head() {
     signOut(auth)
     .then(()=>{
       dispatch(setSignOut());
-      navigate("/login");
+      navigate("/");
     })
     
   }
@@ -46,7 +50,7 @@ function Head() {
           email:  data.email, 
           photo : data.photoURL
         }));
-        navigate("/");
+        navigate("/home");
     }})
   },[])
   
